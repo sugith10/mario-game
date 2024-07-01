@@ -6,11 +6,18 @@ class MyButtton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  ClipRRect(
-      borderRadius: BorderRadius.circular(15),
-      child: Container(
-        color: Colors.brown[300],
-        child: Icon(icon),
+    return GestureDetector(
+      
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15),
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          color: Colors.brown[300],
+          child: Icon(
+            icon,
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }

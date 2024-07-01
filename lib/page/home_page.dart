@@ -1,9 +1,36 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:mario_game/widget/mario.dart';
 
 import '../widget/my_buttton.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  static double marioX = 0;
+  static double marioY = 1;
+  double time = 0;
+  double height = 0;
+  double initialHeight = marioY;
+
+  void preJump() {
+    time = 0;
+    initialHeight = marioY;
+  }
+
+  void jump() {
+    preJump();
+    Timer.periodic(const Duration(milliseconds: 50), (timer) {
+      time += 0.05;
+      height = -4.9 * time * time + 5 * time;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +41,11 @@ class HomePage extends StatelessWidget {
             flex: 4,
             child: Container(
               color: Colors.blue,
+              child: AnimatedContainer(
+                alignment: Alignment(marioX, marioY),
+                duration: Duration(milliseconds: 0),
+                child: MyMario(),
+              ),
             ),
           ),
           Expanded(
@@ -23,18 +55,17 @@ class HomePage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  MyButtton(    
+                  MyButtton(
                     icon: Icons.arrow_back,
                   ),
-                   MyButtton(    
+                  MyButtton(
                     icon: Icons.arrow_upward,
                   ),
-                   MyButtton(    
+                  MyButtton(
                     icon: Icons.arrow_forward,
                   )
                 ],
               ),
-              
             ),
           ),
         ],
